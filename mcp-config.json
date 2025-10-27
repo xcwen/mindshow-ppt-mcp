@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "mindshow-mcp-server": {
+      "command": "npx",
+      "args": ["-y", "mindshow-mcp-server"],
+      "env": {
+        "API_KEY": "mindshow mcp api key"
+      }
+    }
+  }
+}

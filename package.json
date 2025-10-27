@@ -1,0 +1,39 @@
+{
+  "name": "mindshow-mcp-server",
+  "version": "0.0.2",
+  "description": "mindshow ppt mcp server",
+  "private": false,
+  "license": "MIT",
+  "author": "mindshow PPT, PBC (https://www.mindshow.vip)",
+  "type": "module",
+  "bin": {
+    "mindshow-mcp-server": "./build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "prepare": "npm run build",
+    "watch": "tsc --watch",
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js",
+    "start": "node build/index.js",
+    "start:sse": "node build/sse.js",
+    "start:streamableHttp": "node build/streamableHttp.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.11.5",
+    "dotenv": "^16.4.5",
+    "express": "^5.1.0",
+    "json-schema-to-zod": "^2.6.1",
+    "uuid": "^11.1.0",
+    "zod": "^3.25.35",
+    "zod-to-json-schema": "^3.24.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^20.11.24",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.3.3"
+  }
+}
