@@ -302,7 +302,7 @@ export async function executeApiTool(
             content: [
                 {
                     type: "text",
-                    text: JSON.stringify(response.data)
+                    text: `API Response (Status: ${response.status}):\n${responseText}`
                 }
             ],
             ...response.data
