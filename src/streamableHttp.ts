@@ -13,6 +13,7 @@ const sessions: {
   [sessionId: string]: {
     transport: StreamableHTTPServerTransport;
     server: ReturnType<typeof createServer>["server"];
+    isClosing: boolean;
   };
 } = {};
 
@@ -35,24 +36,25 @@ app.post("/mcp", async (req: Request, res: Response) => {
       const eventStore = new InMemoryEventStore();
       transport = new StreamableHTTPServerTransport({
         sessionIdGenerator: () => randomUUID(),
-        eventStore, // Enable resumability
+        eventStore,
         onsessioninitialized: (sessionId) => {
-          // Store both the transport and server by session ID when session is initialized
-          // This avoids race conditions where requests might come in before the session is stored
           console.error(`Session initialized with ID: ${sessionId}`);
-          sessions[sessionId] = { transport, server };
+          sessions[sessionId] = { transport, server, isClosing: false };
         },
       });
 
-      // Set up onclose handler to clean up session when closed
       transport.onclose = async () => {
         const sid = transport.sessionId;
         if (sid && sessions[sid]) {
+          if (sessions[sid].isClosing) {
+            return;
+          }
+
+          sessions[sid].isClosing = true;
           console.error(
             `Transport closed for session ${sid}, cleaning up session`
           );
 
-          // Close the server instance for this session
           try {
             await sessions[sid].server.close();
             console.error(`Closed server for session ${sid}`);
@@ -60,13 +62,10 @@ app.post("/mcp", async (req: Request, res: Response) => {
             console.error(`Error closing server for session ${sid}:`, error);
           }
 
-          // Remove the session
           delete sessions[sid];
         }
       };
 
-      // Connect the transport to its dedicated MCP server BEFORE handling the request
-      // so responses can flow back through the same transport
       await server.connect(transport);
       console.error(`Connected new transport to dedicated server instance`);
 
