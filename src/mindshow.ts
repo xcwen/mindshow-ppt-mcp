@@ -86,24 +86,24 @@ export const createServer = () => {
         return def.name != "resource_upload";
     } ) .map(def => {
         //添加对话类 应用要的结构
-        // def.outputSchema["properties"] = {
-        //     "isError": {
-        //         "type": "boolean", "description": "是否成功, 对话类应用使用",
-        //     },
-        //     "content": {
-        //         "type": "array", "description": "内容列表",
-        //         "items":  {
-        //             "type": {
-        //                 "type": "string", "description": "类型 :text ",
-        //             },
-        //             "text": {
-        //                 "type": "string", "description": "内容",
-        //             },
-        //         }
-        //     },
-        // 
-        //     ...def.outputSchema["properties"],
-        // };
+        def.outputSchema["properties"] = {
+            "isError": {
+                "type": "boolean", "description": "是否成功, 对话类应用使用",
+            },
+            "content": {
+                "type": "array", "description": "内容列表",
+                "items":  {
+                    "type": {
+                        "type": "string", "description": "类型 :text ",
+                    },
+                    "text": {
+                        "type": "string", "description": "内容",
+                    },
+                }
+            },
+
+            ...def.outputSchema["properties"],
+        };
         return {
             name: def.name,
             description: def.description,
@@ -298,13 +298,14 @@ export async function executeApiTool(
 
         // Return formatted response
         return {
-            // isError: false,
-            // content: [
-            //     {
-            //         type: "text",
-            //         text: `API Response (Status: ${response.status}):\n${responseText}`
-            //     }
-            // ],
+            isError: false,
+            content: [
+                {
+                    type: "text",
+                    //text: `API Response (Status: ${response.status}):\n${responseText}`
+                    text: `${responseText}`
+                }
+            ],
             ...response.data
         };
 
