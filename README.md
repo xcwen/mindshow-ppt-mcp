@@ -4,11 +4,13 @@
 MINSHOSW PPT MCP server， 适配 https://api-doc.mindshow.vip
 
 ### Tools
-1. `generate_ppt_by_topic`
+
+1.  https://api-doc.mindshow.vip 接口列表
+
+2. `generate_ppt_by_topic` (直接输出ppt,用在agent)  (TODO)
    - 输入:
-     - `topic` (string): 话题名称
-    返回: 预览链接
-2.
+     - `topic` (string): 话题或相关内容
+    返回: PPTX链接
 
 ## 使用指引：
 
