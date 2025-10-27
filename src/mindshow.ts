@@ -300,13 +300,12 @@ export async function executeApiTool(
         return {
             isError: false,
             content: [
-                response.data
-                // {
-                //     type: "text",
-                //     //text: `API Response (Status: ${response.status}):\n${responseText}`
-                //     text: `${responseText}`
-                // }
+                {
+                    type: "text",
+                    text: JSON.stringify(response.data)
+                }
             ],
+            ...response.data
         };
 
     } catch (error: unknown) {
