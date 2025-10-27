@@ -341,7 +341,8 @@ export const getAuthInfo = (req: express.Request): AuthInfo => {
         apiKey = token;
     }
     if (!apiKey) {
-        throw new Error("No valid api key provided");
+        apiKey="";
+        // throw new Error("No valid api key provided");
     }
     return { token: apiKey, clientId: "", scopes: ["Generation"] };
 };
