@@ -303,9 +303,9 @@ export async function executeApiTool(
                 {
                     type: "text",
                     text: `API Response (Status: ${response.status}):\n${responseText}`,
-                    ...response.data
                 }
             ],
+            ...response.data
         };
 
     } catch (error: unknown) {
