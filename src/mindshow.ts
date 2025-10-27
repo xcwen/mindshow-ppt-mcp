@@ -179,7 +179,9 @@ export const createServer = () => {
                 if (toolDefinition) {
                     if (toolName == "generate_ppt_by_topic") {
                     } else {
-                        return await executeApiTool(toolName, toolArgs ?? {}, apiKey);
+                       let ret= await executeApiTool(toolName, toolArgs ?? {}, apiKey);
+                        console.error("tool_ret", toolName,ret );
+                        return ret;
                     }
                 }
 
@@ -339,7 +341,7 @@ export const getAuthInfo = (req: express.Request): AuthInfo => {
     if (!apiKey && authHeader) {
         const [_type, token] = authHeader.split(" ");
         apiKey = token;
-    }
+}
     if (!apiKey) {
         apiKey="";
         // throw new Error("No valid api key provided");
