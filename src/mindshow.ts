@@ -302,10 +302,10 @@ export async function executeApiTool(
             content: [
                 {
                     type: "text",
-                    text: `API Response (Status: ${response.status}):\n${responseText}`
+                    text: `API Response (Status: ${response.status}):\n${responseText}`,
+                    ...response.data
                 }
             ],
-            ...response.data
         };
 
     } catch (error: unknown) {
