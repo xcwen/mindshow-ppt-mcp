@@ -15,7 +15,7 @@ MINSHOSW PPT MCP server， 适配 https://api-doc.mindshow.vip
 ## 使用指引：
 
 ### 方法 1：Streamable HTTP
-1.    https://mpc.mindshow.vip?api_key=<替换为获取的 token>
+1.    https://mcp.mindshow.vip/mcp?api_key="替换为获取的 token"
 
 ### 方法 2：本地执行
 
